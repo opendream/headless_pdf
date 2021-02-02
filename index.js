@@ -23,7 +23,7 @@ const main = async (url, landscape) => {
 
 app.get('/headless-pdf', async function (req, res) {
 
-  const pdf = await main(req.query.urli, req.query.landscape);
+  const pdf = await main(req.query.url, req.query.landscape);
   res.set("Content-Disposition", "attachment;filename=" + (req.query.filename || "print") + ".pdf");
   res.contentType("application/pdf");
   res.send(pdf);
