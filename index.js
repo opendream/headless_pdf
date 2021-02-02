@@ -8,8 +8,13 @@ const main = async (url) => {
 
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-  await page.goto(url, {waitUntil: 'networkidle0'});
-  const pdf = await page.pdf({ format: 'A4' });
+  
+  let pdf = ''
+
+  try {
+    await page.goto(url, {waitUntil: 'networkidle0'});
+    pdf = await page.pdf({ format: 'A4' });
+  } catch(err) {}
  
   await browser.close();
   return pdf
