@@ -4,7 +4,7 @@ const puppeteer = require ('puppeteer');
 const express = require('express');
 var app = express(exports);
 
-const main = async (url) => {
+const main = async (url, landscape) => {
 
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
@@ -13,7 +13,7 @@ const main = async (url) => {
 
   try {
     await page.goto(url, {waitUntil: 'networkidle0'});
-    pdf = await page.pdf({ format: 'A4' });
+    pdf = await page.pdf({ format: 'A4', landscape: landscape ? true: false });
   } catch(err) {}
  
   await browser.close();
@@ -23,7 +23,7 @@ const main = async (url) => {
 
 app.get('/headless-pdf', async function (req, res) {
 
-  const pdf = await main(req.query.url);
+  const pdf = await main(req.query.urli, req.query.landscape);
   res.set("Content-Disposition", "attachment;filename=" + (req.query.filename || "print") + ".pdf");
   res.contentType("application/pdf");
   res.send(pdf);
