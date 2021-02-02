@@ -16,7 +16,7 @@ const main = async (url) => {
 
  }
 
-app.get('/', async function (req, res) {
+app.get('/headless-pdf', async function (req, res) {
 
   const pdf = await main(req.query.url);
   res.set("Content-Disposition", "attachment;filename=" + (req.query.filename || "print") + ".pdf");
