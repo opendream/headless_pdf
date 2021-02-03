@@ -11,16 +11,21 @@ const main = async (url, landscape) => {
   
   let pdf = ''
 
-  try {
-    await page.goto(url, {waitUntil: 'networkidle0'});
-    const pageStyle = landscape ? '@page { size: A4 landscape; }': '@page { size: A4; }'
-    page.addStyleTag(
-      {'content': pageStyle}
-    )
-    pdf = await page.pdf({ format: 'A4' });
-  } catch(err) {}
+  await page.goto(url, {waitUntil: 'networkidle0', timeout: 10000}).catch((res) => {
+    console.log('fails', res)
+  });
+  const pageStyle = landscape ? '@page { size: A4 landscape; }': '@page { size: A4; }'
+  page.addStyleTag(
+    {'content': pageStyle}
+  )
+  pdf = await page.pdf({ format: 'A4' }).catch((res) => {
+    console.log('fails', res)
+  });
  
-  await browser.close();
+  await browser.close().catch((res) => {
+    console.log('fails', res)
+  });
+
   return pdf
 
  }
