@@ -13,7 +13,11 @@ const main = async (url, landscape) => {
 
   try {
     await page.goto(url, {waitUntil: 'networkidle0'});
-    pdf = await page.pdf({ format: 'A4', landscape: landscape ? true: false });
+    const pageStyle = landscape ? '@page { size: A4 landscape; }': '@page { size: A4; }'
+    page.addStyleTag(
+      {'content': pageStyle}
+    )
+    pdf = await page.pdf({ format: 'A4' });
   } catch(err) {}
  
   await browser.close();
