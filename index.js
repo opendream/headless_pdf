@@ -11,7 +11,9 @@ const main = async (url, landscape) => {
   
   let pdf = ''
 
-  await page.goto(url, {waitUntil: 'networkidle0', timeout: 10000}).catch((res) => {
+  console.log(url);
+
+  await page.goto(url, {waitUntil: 'networkidle0', timeout: 30000}).catch((res) => {
     console.log('fails', res)
   });
   const pageStyle = landscape ? '@page { size: A4 landscape; }': '@page { size: A4; }'
