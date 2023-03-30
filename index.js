@@ -16,8 +16,7 @@ const main = async (url, landscape) => {
   await page.goto(url, {waitUntil: 'networkidle0', timeout: 30000}).catch((res) => {
     console.log('fails', res)
   });
-  const pageStyle = landscape ? '@page { size: A4 landscape; }': '@page { size: A4; }'
-  pageStyle += '.print-hide { display: none !important }'
+  const pageStyle = landscape ? '@page { size: A4 landscape; } .print-hide { display: none !important; }': '@page { size: A4; } .print-hide { display: none !important; }'
   page.addStyleTag(
     {'content': pageStyle}
   )
