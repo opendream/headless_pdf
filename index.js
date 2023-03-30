@@ -17,6 +17,7 @@ const main = async (url, landscape) => {
     console.log('fails', res)
   });
   const pageStyle = landscape ? '@page { size: A4 landscape; }': '@page { size: A4; }'
+  pageStyle += '.print-hide { display: none !important }'
   page.addStyleTag(
     {'content': pageStyle}
   )
